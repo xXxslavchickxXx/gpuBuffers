@@ -35,7 +35,16 @@
     <ClInclude Include="shaders\shader\Shader.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="gpu\traits.h">
+    <ClInclude Include="gpu\traits\traits.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="gpu\gpuBuffer\gpuBuffer.hpp">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="gpu\traits\userTraits.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="gpu\traits\glmTraits.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
@@ -43,5 +52,7 @@
     <None Include="window\src\window.inl">
       <Filter>Файлы заголовков</Filter>
     </None>
+    <None Include="src\shaders\F.glsl" />
+    <None Include="src\shaders\V.glsl" />
   </ItemGroup>
 </Project>

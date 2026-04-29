@@ -19,16 +19,15 @@ int main()
 
     // Создаем конвейер и настраиваем его
     VertexArray vao;
-    auto posBuffer = vao.addBuffer<vec3>(GL_ARRAY_BUFFER, GL_STATIC_DRAW, 0, 3);
+    auto posBuffer = vao.addBuffer<glm::vec3>(GL_ARRAY_BUFFER, GL_STATIC_DRAW, 0);
 
-    std::vector<vec3> points = {
-        vec3( 0.3f,  0.5f,  0.f),
-        vec3(-0.3f,  0.5f,  0.f),
-        vec3( 0.3f, -0.5f,  0.f)
+    std::vector<glm::vec3> points = {
+        glm::vec3( 0.3f,  0.5f,  0.f),
+        glm::vec3(-0.3f,  0.5f,  0.f),
+        glm::vec3( 0.3f, -0.5f,  0.f)
     };
 
     posBuffer->upload(points);
-
     // Создаем шейдерную программу
     shader::ShaderProgram program("src/shaders/V.glsl", "src/shaders/F.glsl");
 

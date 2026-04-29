@@ -5,7 +5,7 @@
 #include <iostream>
 #include <vector>
 
-#include "../traits.h"
+#include "../traits/traits.h"
 
 namespace engine::gpu {
 	class Buffer {
@@ -89,18 +89,21 @@ namespace engine::gpu {
 			}
 		}
 
-		template<typename Type>
-		Buffer* addBuffer(GLenum target, GLenum mode, GLint attribIndex, GLint compCount) {
+		Buffer* addBuffer(GLenum target, GLenum mode, GLenum type, GLint attribIndex, GLint compCount, GLint valueSize) {
 			bind();
-			auto buffer = std::make_unique<Buffer>(target, mode, sizeof(Type));
+			auto buffer = std::make_unique<Buffer>(target, mode, valueSize);
 			glBindBuffer(target, buffer->getId());
-			glVertexAttribPointer(attribIndex, compCount, GL_FLOAT, GL_FALSE, sizeof(Type), 0);
+			glVertexAttribPointer(attribIndex, compCount, type, GL_FALSE, valueSize, 0);
 			glEnableVertexAttribArray(attribIndex);
 
 			auto ptr = buffer.get();
 			buffers.push_back(std::move(buffer));
 
 			return ptr;
+		}
+		template<typename T>
+		Buffer* addBuffer(GLenum target, GLenum mode, GLint attribIndex) {
+			return addBuffer(target, mode, type_to_gltype_t<T>, attribIndex, type_to_gltype_c<T>, sizeof(T));
 		}
 
 		Buffer* addIndexBuffer(GLenum mode) {
