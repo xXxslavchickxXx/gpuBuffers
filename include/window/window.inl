@@ -1,5 +1,3 @@
-#include "../window.h"
-
 Window::Window() : Window(800, 600) {}
 Window::Window(int width, int height) : Window(width, height, "window") {}
 Window::Window(int width, int height, const std::string& title) :

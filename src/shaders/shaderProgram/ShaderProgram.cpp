@@ -1,4 +1,4 @@
-#include "../ShaderProgram.h"
+#include <shaderProgram/ShaderProgram.h>
 
 #include <iostream>
 #include <format>

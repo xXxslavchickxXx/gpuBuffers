@@ -1,7 +1,7 @@
 #pragma once
 
 #include <unordered_map>
-#include "../shader/Shader.h"
+#include <shader/Shader.h>
 
 namespace shader {
 	class ShaderProgram {

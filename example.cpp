@@ -1,9 +1,9 @@
 ﻿#include <iostream>
 #include <vector>
 
-#include "gpu/gpuBuffer/gpuBuffer.hpp"
-#include "window/window.h"
-#include "shaders/shaderProgram/ShaderProgram.h"
+#include <gpuBuffer.hpp>
+#include <window.h>
+#include <shaderProgram/ShaderProgram.h>
 
 using namespace engine::gpu;
 
@@ -29,7 +29,7 @@ int main()
 
     posBuffer->upload(points);
     // Создаем шейдерную программу
-    shader::ShaderProgram program("src/shaders/V.glsl", "src/shaders/F.glsl");
+    shader::ShaderProgram program("assets/shaders/V.glsl", "assets/shaders/F.glsl");
 
     // Настриваем то, что будет происходить в игровом цикле
     auto gameLoop = [&]() {

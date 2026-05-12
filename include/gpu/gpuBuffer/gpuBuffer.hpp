@@ -5,7 +5,7 @@
 #include <iostream>
 #include <vector>
 
-#include "../traits/traits.h"
+#include <traits.h>
 
 namespace engine::gpu {
 	class Buffer {
