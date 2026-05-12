@@ -69,3 +69,4 @@ Testing/
 .cache/
 *.vsidx
 /.vs
+/CMakeSettings.json
