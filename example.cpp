@@ -2,6 +2,7 @@
 #include <vector>
 
 #include <vertex/vertex_array.hpp>
+#include <uniform/uniform_buffer.hpp>
 #include <window.h>
 #include <shaderProgram/ShaderProgram.h>
 
