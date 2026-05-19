@@ -5,6 +5,8 @@
 #include <window.h>
 #include <shaderProgram/ShaderProgram.h>
 
+#include <glm/gtc/type_ptr.hpp>
+
 using namespace engine::gpu;
 
 // Тестовая структура для описания позиции точки
@@ -45,7 +47,12 @@ int main()
         program.bind();
         vao.bind();
 
-        //glDrawArrays(GL_TRIANGLES, 0, 3);
+        static float angle = 0.f;
+        static glm::vec3 rotate_axis{0.f, 0.f, 1.f};
+        angle += 0.0001;
+
+        program.uniform("projection") = glm::rotate(glm::mat4(1.f), angle, rotate_axis);
+
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
     };
 
