@@ -3,7 +3,6 @@
 
 #include <gpuBuffer.hpp>
 #include <window.h>
-#include <shaderProgram/ShaderProgram.h>
 
 using namespace engine::gpu;
 
@@ -18,25 +17,34 @@ int main()
     Window win;
 
     // Создаем конвейер и настраиваем его
-    VertexArray vao;
-    auto posBuffer = vao.addBuffer<glm::vec3>(GL_ARRAY_BUFFER, GL_STATIC_DRAW, 0);
+    //VertexArray vao;
+    //auto posBuffer = vao.addBuffer<glm::vec3>(GL_ARRAY_BUFFER, GL_STATIC_DRAW, 0);
+    //auto idxBuffer = vao.addIndexBuffer(GL_STATIC_DRAW);
 
-    std::vector<glm::vec3> points = {
-        glm::vec3( 0.3f,  0.5f,  0.f),
-        glm::vec3(-0.3f,  0.5f,  0.f),
-        glm::vec3( 0.3f, -0.5f,  0.f)
-    };
+    //std::vector<glm::vec3> points = {
+    //    glm::vec3( 0.3f,  0.5f,  0.f),
+    //    glm::vec3(-0.3f,  0.5f,  0.f),
+    //    glm::vec3( 0.3f, -0.5f,  0.f),
+    //    glm::vec3(-0.3f, -0.5f,  0.f)
+    //};
 
-    posBuffer->upload(points);
-    // Создаем шейдерную программу
-    shader::ShaderProgram program("assets/shaders/V.glsl", "assets/shaders/F.glsl");
+    //std::vector<uint32_t> indices = {
+    //    0, 1, 2,
+    //    1, 2, 3
+    //};
+
+    //idxBuffer->upload(indices);
+    //posBuffer->upload(points);
+    //// Создаем шейдерную программу
+    //shader::ShaderProgram program("assets/shaders/V.glsl", "assets/shaders/F.glsl");
 
     // Настриваем то, что будет происходить в игровом цикле
     auto gameLoop = [&]() {
-        program.bind();
-        vao.bind();
+        /*program.bind();
+        vao.bind();*/
 
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        //glDrawArrays(GL_TRIANGLES, 0, 3);
+        //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
     };
 
     // Запускаем игровой цикл

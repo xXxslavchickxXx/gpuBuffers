@@ -102,13 +102,13 @@ namespace engine::gpu {
 			return ptr;
 		}
 		template<typename T>
-		Buffer* addBuffer(GLenum target, GLenum mode, GLint attribIndex) {
+		Buffer* addBuffer(GLenum target, GLenum drawMode, GLint attribIndex) {
 			return addBuffer(target, mode, type_to_gltype_t<T>, attribIndex, type_to_gltype_c<T>, sizeof(T));
 		}
 
-		Buffer* addIndexBuffer(GLenum mode) {
+		Buffer* addIndexBuffer(GLenum drawMode) {
 			bind();
-			indexBuffer = std::make_unique<Buffer>(GL_ELEMENT_ARRAY_BUFFER, mode, sizeof(uint32_t));
+			indexBuffer = std::make_unique<Buffer>(GL_ELEMENT_ARRAY_BUFFER, drawMode, sizeof(uint32_t));
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer->getId());
 
 			return indexBuffer.get();
