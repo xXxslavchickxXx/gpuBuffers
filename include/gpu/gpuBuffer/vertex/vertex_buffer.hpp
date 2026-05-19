@@ -26,7 +26,7 @@ namespace ag {
 		}
 		template<typename Container>
 		void upload_part(const Container& container, size_t offset = 0) {
-			set_sub_data(container.size(), container.data(), offset);
+			set_sub_data(sizeof(container), container.data(), offset);
 		}
 	};
 }
