@@ -8,11 +8,21 @@ project(gpuBuffers VERSION 1.0 LANGUAGES CXX)
 option(BUILD_EXAMPLE "Build example" OFF)
 option(GLM_TRAITS "glm traits if you want" ON)
 
-add_library(gpuBuffers INTERFACE)
+set(GPUBUFFER_HEADERS
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/vertex/vertexBuffer.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/vertex/vertexArray.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/vertex/indexedBuffer.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/Buffer.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/traits/traits.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/traits/userTraits.h
+)
+
+add_library(gpuBuffers INTERFACE ${GPUBUFFER_HEADERS})
 
 target_include_directories(gpuBuffers INTERFACE
     ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer
     ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/traits
+    ${GLEW_INCLUDE_DIRS}
 )
 
 # Зависимости
@@ -27,33 +37,26 @@ endif()
 
 # Запуск примера
 if(BUILD_EXAMPLE)
-    add_library(example_deps STATIC
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/shaders/shader/Shader.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/shaders/shaderProgram/ShaderProgram.cpp
-    )
-    
-    target_include_directories(example_deps PUBLIC
+    target_include_directories(gpuBuffers INTERFACE
         ${CMAKE_CURRENT_SOURCE_DIR}/include/shaders
         ${CMAKE_CURRENT_SOURCE_DIR}/include/window
     )
 
     # Для создания окна нужен глвф
     find_package(glfw3 REQUIRED)
+    add_subdirectory(libs/shader_lib)
     
-    target_link_libraries(example_deps
+    add_executable(gpuBuffers_example example.cpp)
+    target_link_libraries(gpuBuffers_example
         gpuBuffers
-    )
-    
-    add_executable(example example.cpp)
-    target_link_libraries(example
-        example_deps
         glfw
+        shaderLib
     )
 
     # Эта тема нужна для копирования ассетов в папку с исполняемым файлом
-    add_custom_command(TARGET example POST_BUILD
+    add_custom_command(TARGET gpuBuffers_example POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${CMAKE_CURRENT_SOURCE_DIR}/assets
-        $<TARGET_FILE_DIR:example>/assets
+        $<TARGET_FILE_DIR:gpuBuffers_example>/assets
     )
 endif()
