@@ -12,6 +12,7 @@ set(GPUBUFFER_HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/vertex/vertex_buffer.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/vertex/vertex_array.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/vertex/indexed_buffer.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/uniform/uniform_buffer.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/buffer.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/traits/traits.h
     ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/traits/userTraits.h

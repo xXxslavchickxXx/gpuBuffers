@@ -7,7 +7,7 @@
 
 #include <glm/gtc/type_ptr.hpp>
 
-using namespace engine::gpu;
+using namespace ag::gpu;
 
 // Тестовая структура для описания позиции точки
 struct vec3 {

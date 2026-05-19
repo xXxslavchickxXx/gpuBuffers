@@ -8,7 +8,7 @@
 #include <vertex/vertex_buffer.hpp>
 #include <vertex/indexed_buffer.hpp>
 
-namespace engine::gpu {
+namespace ag::gpu {
 	class vertex_array {
 		GLuint vao = 0;
 		// Карта где ключ - локация атрибута
