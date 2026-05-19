@@ -5,8 +5,8 @@
 #include <iostream>
 #include <vector>
 
-#include <vertex/vertexBuffer.hpp>
-#include <vertex/indexedBuffer.hpp>
+#include <vertex/vertex_buffer.hpp>
+#include <vertex/indexed_buffer.hpp>
 
 namespace engine::gpu {
 	class vertex_array {
@@ -38,7 +38,7 @@ namespace engine::gpu {
 			}
 		}
 
-		vertex_buffer* addBuffer(GLenum mode, GLint attribIndex, GLint compCount, GLint valueSize) {
+		vertex_buffer* add_buffer(GLenum mode, GLint attribIndex, GLint compCount, GLint valueSize) {
 			if (buffers.find(attribIndex) != buffers.end()) {
 				std::cerr << "this location is set\n";
 			}
@@ -55,11 +55,11 @@ namespace engine::gpu {
 			return ptr;
 		}
 		template<typename T>
-		vertex_buffer* addBuffer(GLenum drawMode, GLint attribIndex) {
-			return addBuffer(drawMode, attribIndex, type_to_gltype_c<T>, sizeof(T));
+		vertex_buffer* add_buffer(GLenum drawMode, GLint attribIndex) {
+			return add_buffer(drawMode, attribIndex, type_to_gltype_c<T>, sizeof(T));
 		}
 
-		indexed_buffer* addIndexBuffer(GLenum drawMode) {
+		indexed_buffer* add_index_buffer(GLenum drawMode) {
 			bind();
 			indexBuffer = std::make_unique<indexed_buffer>(drawMode);
 			indexBuffer->bind();
@@ -67,6 +67,6 @@ namespace engine::gpu {
 			return indexBuffer.get();
 		}
 
-		indexed_buffer* getIndexBuffer() const { return indexBuffer.get(); }
+		indexed_buffer* get_index_buffer() const { return indexBuffer.get(); }
 	};
 }

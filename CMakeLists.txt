@@ -9,10 +9,10 @@ option(BUILD_EXAMPLE "Build example" OFF)
 option(GLM_TRAITS "glm traits if you want" ON)
 
 set(GPUBUFFER_HEADERS
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/vertex/vertexBuffer.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/vertex/vertexArray.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/vertex/indexedBuffer.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/Buffer.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/vertex/vertex_buffer.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/vertex/vertex_array.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/vertex/indexed_buffer.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/buffer.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/traits/traits.h
     ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/traits/userTraits.h
 )

@@ -1,7 +1,7 @@
 ﻿#include <iostream>
 #include <vector>
 
-#include <vertex/vertexArray.hpp>
+#include <vertex/vertex_array.hpp>
 #include <window.h>
 #include <shaderProgram/ShaderProgram.h>
 
@@ -20,8 +20,8 @@ int main()
 
     // Создаем конвейер и настраиваем его
     vertex_array vao;
-    auto posBuffer = vao.addBuffer<glm::vec3>(GL_STATIC_DRAW, 0);
-    auto idxBuffer = vao.addIndexBuffer(GL_STATIC_DRAW);
+    auto posBuffer = vao.add_buffer<glm::vec3>(GL_STATIC_DRAW, 0);
+    auto idxBuffer = vao.add_index_buffer(GL_STATIC_DRAW);
 
     std::vector<glm::vec3> points = {
         glm::vec3( 0.3f,  0.5f,  0.f),
