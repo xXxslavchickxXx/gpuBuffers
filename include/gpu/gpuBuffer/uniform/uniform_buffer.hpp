@@ -1,1 +1,50 @@
-//#include <buffer>
+#include <buffer.hpp>
+
+namespace ag {
+	class uniform_buffer : public buffer {
+		GLint bindingPoint = -1;
+
+	public:
+		using buffer::buffer;
+
+	public:
+		uniform_buffer() : buffer(GL_UNIFORM_BUFFER) {}
+		uniform_buffer(GLenum draw_mode) : buffer(GL_UNIFORM_BUFFER, draw_mode) {}
+
+		void bind_base(GLint binding) {
+			bindingPoint = binding;
+			glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, get_id());
+		}
+
+		template<typename T>
+		void upload(const T& data) {
+			allocate(sizeof(T), &data);
+		}
+
+		template<typename T>
+		void upload_array(const T* data, size_t count) {
+			allocate(sizeof(T) * count, data);
+		}
+
+		template<typename T>
+		void upload_part(const T& data, size_t offset = 0) {
+			set_sub_data(sizeof(T), &data, offset);
+		}
+
+		template<typename T>
+		void upload_part(const T* data, size_t count, size_t offset = 0) {
+			set_sub_data(sizeof(T) * count, data, offset);
+		}
+
+		static void bind_block(GLuint program, const std::string& blockName, GLint binding) {
+			GLuint blockIndex = glGetUniformBlockIndex(program, blockName.c_str());
+			if (blockIndex != GL_INVALID_INDEX) {
+				glUniformBlockBinding(program, blockIndex, binding);
+			}
+		}
+
+		GLint get_binding() const {
+			return bindingPoint;
+		}
+	};
+}
