@@ -2,3 +2,6 @@
 [submodule "libs/shader_lib"]
 	path = libs/shader_lib
 	url = https://github.com/xXxslavchickxXx/shader_lib
+[submodule "libs/inspector"]
+	path = libs/inspector
+	url = https://github.com/xXxslavchickxXx/ShaderIntrospector

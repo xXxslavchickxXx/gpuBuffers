@@ -46,12 +46,14 @@ if(BUILD_EXAMPLE)
     # Для создания окна нужен глвф
     find_package(glfw3 REQUIRED)
     add_subdirectory(libs/shader_lib)
+    add_subdirectory(libs/inspector)
     
     add_executable(gpuBuffers_example example.cpp)
     target_link_libraries(gpuBuffers_example
         gpuBuffers
         glfw
         shaderLib
+        shaderIntrospector
     )
 
     # Эта тема нужна для копирования ассетов в папку с исполняемым файлом

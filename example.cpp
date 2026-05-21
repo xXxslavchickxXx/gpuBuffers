@@ -4,7 +4,10 @@
 #include <vertex/vertex_array.hpp>
 #include <uniform/uniform_buffer.hpp>
 #include <window.h>
+
+// Сабдирректории
 #include <shaderProgram/ShaderProgram.h>
+#include <uniformReflector/uniformReflector.h>
 
 #include <glm/gtc/type_ptr.hpp>
 
@@ -61,6 +64,7 @@ int main()
     ubo.upload(camera);
     // Создаем шейдерную программу
     auto program = shader::ShaderProgram::from_path("assets/shaders/V.glsl", "assets/shaders/F.glsl");
+    auto reflector = shader::uniform_reflector(program.getId());
     ag::uniform_buffer::bind_block(program.getId(), "CameraBlock", 0);
 
     // Настриваем то, что будет происходить в игровом цикле
@@ -72,7 +76,7 @@ int main()
         static glm::vec3 rotate_axis{0.f, 0.f, 1.f};
         angle += 0.0001;
 
-        program.uniform("model") = glm::rotate(glm::mat4(1.f), angle, rotate_axis);
+        reflector["model"] = glm::rotate(glm::mat4(1.f), angle, rotate_axis);
 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
     };
