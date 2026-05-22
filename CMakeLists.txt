@@ -16,6 +16,7 @@ set(GPUBUFFER_HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/buffer.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/traits/traits.h
     ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/traits/userTraits.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/vertex/vertex_weak_ref.hpp
 )
 
 add_library(gpuBuffers INTERFACE ${GPUBUFFER_HEADERS})

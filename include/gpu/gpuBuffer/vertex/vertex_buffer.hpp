@@ -3,7 +3,24 @@
 #include <buffer.hpp>
 
 namespace ag {
-	class vertex_buffer : public buffer {
+	namespace gpu {
+		class vertex_array;
+	}
+
+	class vertex_buffer : private buffer {
+		friend ag::gpu::vertex_array;
+
+		GLint compCount = -1;
+		GLint byteSize = -1;
+		GLenum type = -1;
+		GLboolean normalized = -1;
+
+		bool is_init = false;
+
+		void set_format(GLint compCount, GLint byteSize, GLenum type, GLboolean normalized) {
+			this->compCount = compCount; this->byteSize = byteSize; this->type = type; this->normalized = normalized; is_init = true;
+		}
+
 	public:
 		using buffer::buffer;
 
@@ -26,7 +43,7 @@ namespace ag {
 		}
 		template<typename Container>
 		void upload_part(const Container& container, size_t offset = 0) {
-			set_sub_data(sizeof(container), container.data(), offset);
+			set_sub_data(container.size() * sizeof(typename Container::value_type), container.data(), offset);
 		}
 	};
 }
