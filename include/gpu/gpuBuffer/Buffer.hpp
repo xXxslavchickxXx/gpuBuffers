@@ -64,7 +64,7 @@ namespace ag {
 		void get_sub_data(size_t size_byte, void* out_data, size_t offset = 0) {
 			bind();
 
-			if (size_byte + offset < capacity) {
+			if (size_byte + offset > capacity) {
 				std::cerr << "this container are smaller than buffer\n";
 				return;
 			}
