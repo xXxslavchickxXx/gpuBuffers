@@ -36,6 +36,15 @@ namespace ag {
 			set_sub_data(sizeof(T) * count, data, offset);
 		}
 
+		void download_part(size_t size_byte, void* out_data, size_t offset = 0) {
+			get_sub_data(size_byte, out_data, offset);
+		}
+
+		template<typename T>
+		void download_part(T& out_data, size_t offset = 0) {
+			download_part(sizeof(T), &out_data, offset);
+		}
+
 		static void bind_block(GLuint program, const std::string& blockName, GLint binding) {
 			GLuint blockIndex = glGetUniformBlockIndex(program, blockName.c_str());
 			if (blockIndex != GL_INVALID_INDEX) {
