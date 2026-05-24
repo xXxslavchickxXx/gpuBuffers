@@ -6,6 +6,7 @@
 
 namespace ag {
 	class buffer {
+	protected:
 		GLuint id;
 		GLenum target;
 		GLenum usage;
@@ -55,10 +56,13 @@ namespace ag {
 			// если данных больше чем зарезервировано, увеличиваем буффер в полтора раза
 			if (capacity < offset + size_byte) {
 				allocate((offset + size_byte) * 1.5);
+				std::cerr << "warning: data's delete!\n";
+			}
+			else {
+				size = size_byte;
 			}
 
 			glBufferSubData(target, offset, size_byte, data);
-			size = size_byte;
 		}
 
 		void get_sub_data(size_t size_byte, void* out_data, size_t offset = 0) {

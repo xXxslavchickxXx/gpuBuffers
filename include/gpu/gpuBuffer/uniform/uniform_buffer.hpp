@@ -15,7 +15,7 @@ namespace ag {
 
 		void bind_base(GLint binding) {
 			bindingPoint = binding;
-			glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, get_id());
+			glBindBufferBase(target, bindingPoint, get_id());
 		}
 
 		template<typename T>
@@ -45,6 +45,12 @@ namespace ag {
 		template<typename T>
 		void download_part(T& out_data, size_t offset = 0) {
 			download_part(sizeof(T), &out_data, offset);
+		}
+
+		void bind_range(GLint binding, GLint left, GLint right) {
+			if (id != GL_INVALID_INDEX) {
+				glBindBufferRange(GL_UNIFORM_BLOCK, binding, id, left, right);
+			}
 		}
 
 		static void bind_block(GLuint program, const std::string& blockName, GLint binding) {
