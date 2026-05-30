@@ -75,7 +75,7 @@ create_library(${PROJECT_NAME}
 if(${PROJECT_NAME}_BUILD_EXAMPLE)
     create_executable(${PROJECT_NAME}_example
         SOURCE ${${PROJECT_NAME}_EXAMPLE_FILEPATH}
-        COPY_ASSETS ON
+        COPY_ASSETS ${PROJECT_NAME}_ASSET_TO_BUILD
         LIBS ${PROJECT_NAME} ${${PROJECT_NAME}_EXAMPLE_LIBS}
     )
 endif()
