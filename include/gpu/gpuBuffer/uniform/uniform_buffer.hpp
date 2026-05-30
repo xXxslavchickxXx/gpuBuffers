@@ -49,7 +49,7 @@ namespace ag {
 
 		void bind_range(GLint binding, GLint left, GLint right) {
 			if (id != GL_INVALID_INDEX) {
-				glBindBufferRange(GL_UNIFORM_BLOCK, binding, id, left, right);
+				glBindBufferRange(target, binding, id, left, right);
 			}
 		}
 
