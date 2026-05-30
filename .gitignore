@@ -70,3 +70,7 @@ Testing/
 *.vsidx
 /.vs
 /CMakeSettings.json
+
+libs/shaderLib/
+
+libs/shaderIntrospector/
