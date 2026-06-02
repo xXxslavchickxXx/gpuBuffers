@@ -85,6 +85,11 @@ namespace ag {
 			size = new_capacity;
 		}
 
+		void reserve(size_t new_capacity) {
+			if (new_capacity <= capacity) return;
+			allocate(new_capacity, nullptr);
+		}
+
 		void set_sub_data(size_t data_size, const void* data, size_t offset = 0) {
 			size_t required = offset + data_size;
 
