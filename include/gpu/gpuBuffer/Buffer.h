@@ -56,7 +56,7 @@ namespace ag {
 			// если данных больше чем зарезервировано, увеличиваем буффер в полтора раза
 			if (capacity < offset + size_byte) {
 				allocate((offset + size_byte) * 1.5);
-				std::cerr << "warning: data's delete!\n";
+				//std::cerr << "warning: data's delete!\n";
 			}
 			else {
 				size = size_byte;
