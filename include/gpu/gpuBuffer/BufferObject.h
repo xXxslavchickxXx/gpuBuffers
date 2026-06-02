@@ -18,32 +18,33 @@ namespace ag {
 
 		template<typename T>
 		void upload(const T* data, size_t count) {
-			allocate(sizeof(T) * count, data);
+			upload_raw(data, sizeof(T) * count);
 		}
 
 		template<concepts::Container T>
 		void upload(const T& container) {
-			upload(container.data(), container.size());
+			size_t element_byte_size = sizeof(typename T::value_type);
+			upload_raw(container.data(), element_byte_size * container.size());
 		}
 
 		template<concepts::TriviallyCopyable T>
 		void upload(const T& scalar) {
-			allocate(sizeof(T), &scalar);
+			upload_raw(&scalar, sizeof(T));
 		}
 
 		template<typename T>
-		void upload_part(const T* data, size_t count, size_t offset = 0) {
-			set_sub_data(sizeof(T) * count, data, offset);
+		void upload_part(const T* data, size_t count, size_t element_offset = 0) {
+			upload_part_raw(data, sizeof(T) * count, sizeof(T) * element_offset);
 		}
-
 		template<concepts::TriviallyCopyable T>
-		void upload_part(const T& scalar, size_t offset = 0) {
-			set_sub_data(sizeof(T), &scalar, offset);
+		void upload_part(const T& scalar, size_t byte_offset = 0) {
+			upload_part_raw(&scalar, sizeof(T), byte_offset);
 		}
 
 		template<concepts::Container T>
-		void upload_part(const T& container, size_t offset = 0) {
-			set_sub_data(container.size() * sizeof(typename T::value_type), container.data(), offset);
+		void upload_part(const T& container, size_t element_offset = 0) {
+			size_t element_byte_size = sizeof(typename T::value_type);
+			upload_part_raw(container.data(), element_byte_size * container.size(), element_byte_size * element_offset);
 		}
 
 		void download_part(size_t size_byte, void* out_data, size_t offset = 0) {
@@ -64,5 +65,14 @@ namespace ag {
 		GLint get_binding() const {
 			return bindingPoint;
 		}
+
+	private:
+		void upload_part_raw(const void* data, size_t byte_size, size_t byte_offset = 0) {
+			set_sub_data(byte_size, data, byte_offset);
+		}
+		void upload_raw(const void* data, size_t byte_size) {
+			allocate(byte_size, data);
+		}
+
 	};
 }
