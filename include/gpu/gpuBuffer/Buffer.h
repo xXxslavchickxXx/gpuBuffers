@@ -14,6 +14,16 @@ namespace ag {
 		size_t size = 0;
 		size_t capacity = 0;
 
+		// Временный буфер (один на весь класс, static)
+		static inline GLuint s_temp_buffer = 0;
+		static inline bool s_temp_initialized = false;
+
+		void ensure_temp() {
+			if (!s_temp_initialized) {
+				glGenBuffers(1, &s_temp_buffer);
+				s_temp_initialized = true;
+			}
+		}
 	public:
 		buffer(GLenum target, GLenum usage = GL_DYNAMIC_DRAW) : target(target), usage(usage), size(0)
 		{
@@ -43,26 +53,54 @@ namespace ag {
 			glBindBuffer(target, id);
 		}
 
-		void allocate(size_t size_byte, const void* data = nullptr) {
-			bind();
-			glBufferData(target, size_byte, data, usage);
-			size = size_byte;
-			capacity = size_byte;
+		void allocate(size_t new_capacity, const void* data = nullptr) {
+			if (new_capacity <= capacity) {
+				if (data) {
+					bind();
+					glBufferSubData(target, 0, new_capacity, data);
+				}
+				size = new_capacity;
+				return;
+			}
+
+			ensure_temp();
+
+			glBindBuffer(target, s_temp_buffer);
+			glBufferData(target, new_capacity, nullptr, usage);
+
+			if (size > 0) {
+				glCopyBufferSubData(id, s_temp_buffer, 0, 0, size);
+			}
+
+			glBindBuffer(target, id);
+			glBufferData(target, new_capacity, nullptr, usage);
+
+			if (size > 0) {
+				glCopyBufferSubData(s_temp_buffer, id, 0, 0, size);
+			}
+
+			if (data) {
+				glBufferSubData(target, size, new_capacity - size,
+					(const uint8_t*)data + size);
+			}
+
+			capacity = new_capacity;
+			size = new_capacity;
 		}
 
-		void set_sub_data(size_t size_byte, const void* data, size_t offset = 0) {
+		void set_sub_data(size_t data_size, const void* data, size_t offset = 0) {
+			size_t required = offset + data_size;
+
+			if (required > capacity) {
+				allocate(std::max(required, capacity * 2), nullptr);
+			}
+
 			bind();
+			glBufferSubData(target, offset, data_size, data);
 
-			// если данных больше чем зарезервировано, увеличиваем буффер в полтора раза
-			if (capacity < offset + size_byte) {
-				allocate((offset + size_byte) * 1.5);
-				//std::cerr << "warning: data's delete!\n";
+			if (required > size) {
+				size = required;
 			}
-			else {
-				size = size_byte;
-			}
-
-			glBufferSubData(target, offset, size_byte, data);
 		}
 
 		void get_sub_data(size_t size_byte, void* out_data, size_t offset = 0) {
