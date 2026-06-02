@@ -34,6 +34,7 @@ set(${PROJECT_NAME}_LIB_H
     ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/traits/userTraits.h
     ${CMAKE_CURRENT_SOURCE_DIR}/include/concepts/concepts.h
     ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/BufferObject.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/IndexedBufferObject.h
     ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/shaderStorage/shader_storage.h
     ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/indirect/indirect_buffer.h
 )

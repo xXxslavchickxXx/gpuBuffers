@@ -4,18 +4,11 @@
 
 namespace ag {
 	class buffer_object : public buffer {
-		GLint bindingPoint = -1;
-
 	protected:
 		buffer_object(GLenum buffer_target, GLenum draw_mode = GL_DYNAMIC_DRAW)
 			: buffer(buffer_target, draw_mode) {}
 
 	public:
-		void bind_base(GLint binding) {
-			bindingPoint = binding;
-			glBindBufferBase(target, bindingPoint, get_id());
-		}
-
 		template<typename T>
 		void upload(const T* data, size_t count) {
 			upload_raw(data, sizeof(T) * count);
@@ -54,16 +47,6 @@ namespace ag {
 		template<typename T>
 		void download_part(T& out_data, size_t offset = 0) {
 			download_part(sizeof(T), &out_data, offset);
-		}
-
-		void bind_range(GLint binding, GLint left, GLint right) {
-			if (id != GL_INVALID_INDEX) {
-				glBindBufferRange(target, binding, id, left, right);
-			}
-		}
-
-		GLint get_binding() const {
-			return bindingPoint;
 		}
 
 	private:

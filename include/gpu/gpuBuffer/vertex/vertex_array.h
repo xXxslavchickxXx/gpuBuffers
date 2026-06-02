@@ -50,6 +50,9 @@ namespace ag::gpu {
 			glVertexAttribPointer(attribIndex, compCount, GL_FLOAT, GL_FALSE, valueSize, 0);
 			glEnableVertexAttribArray(attribIndex);
 
+			buffer->set_format(compCount, valueSize,
+				GL_FLOAT, GL_FALSE);
+
 			buffers[attribIndex] = std::move(buffer);
 			return buffers[attribIndex];
 		}

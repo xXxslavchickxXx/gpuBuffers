@@ -1,13 +1,13 @@
 #pragma once
 
-#include <buffer.h>
+#include <BufferObject.h>
 
 namespace ag {
 	namespace gpu {
 		class vertex_array;
 	}
 
-	class vertex_buffer : private buffer {
+	class vertex_buffer : public buffer_object {
 		friend ag::gpu::vertex_array;
 
 		GLint compCount = -1;
@@ -22,28 +22,6 @@ namespace ag {
 		}
 
 	public:
-		using buffer::buffer;
-
-	public:
-		vertex_buffer() : buffer(GL_ARRAY_BUFFER) {}
-		vertex_buffer(GLenum usage) : buffer(GL_ARRAY_BUFFER, usage) {}
-
-		template<typename T>
-		void upload(const T* data, size_t count) {
-			allocate(sizeof(T) * count, data);
-		}
-		template<concepts::Container T>
-		void upload(const T& container) {
-			upload(container.data(), container.size());
-		}
-
-		template<typename T>
-		void upload_part(const T* data, size_t count, size_t offset = 0) {
-			set_sub_data(sizeof(T) * count, data, offset);
-		}
-		template<concepts::Container T>
-		void upload_part(const T& container, size_t offset = 0) {
-			set_sub_data(container.size() * sizeof(typename T::value_type), container.data(), offset);
-		}
+		vertex_buffer(GLenum draw_mode = GL_DYNAMIC_DRAW) : buffer_object(GL_ARRAY_BUFFER, draw_mode) {}
 	};
 }

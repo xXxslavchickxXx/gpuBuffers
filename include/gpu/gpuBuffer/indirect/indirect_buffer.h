@@ -1,6 +1,6 @@
 #pragma once
 
-#include <BufferObject.h>
+#include <IndexedBufferObject.h>
 
 namespace ag {
     class indirect_buffer : public buffer_object {
