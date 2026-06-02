@@ -2,7 +2,7 @@
 
 #include <memory>
 #include <iostream>
-#include "vertex_buffer.hpp"
+#include "vertex_buffer.h"
 
 namespace ag {
     class vertex_buffer_ref {

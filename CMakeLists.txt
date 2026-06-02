@@ -24,14 +24,18 @@ set(${PROJECT_NAME}_EXAMPLE_FILEPATH example.cpp)
 
 # 2. Ручное указание файлов твоей библиотеки (если хочешь перечислить конкретные файлы)
 set(${PROJECT_NAME}_LIB_H 
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/vertex/vertex_buffer.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/vertex/vertex_array.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/vertex/indexed_buffer.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/uniform/uniform_buffer.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/buffer.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/vertex/vertex_weak_ref.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/vertex/vertex_buffer.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/vertex/vertex_array.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/vertex/indexed_buffer.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/uniform/uniform_buffer.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/buffer.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/vertex/vertex_weak_ref.h
     ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/traits/traits.h
     ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/traits/userTraits.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/concepts/concepts.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/BufferObject.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/shaderStorage/shader_storage.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer/indirect/indirect_buffer.h
 )
 set(${PROJECT_NAME}_LIB_CPP "")
 
@@ -40,6 +44,7 @@ set(${PROJECT_NAME}_INCLUDE
     ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/gpuBuffer
     ${CMAKE_CURRENT_SOURCE_DIR}/include/window
     ${CMAKE_CURRENT_SOURCE_DIR}/include/gpu/traits
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/concepts
 )
 
 # 3. Внешние либы для линковки к твоей основной библиотеке (например: gpuBuffers)

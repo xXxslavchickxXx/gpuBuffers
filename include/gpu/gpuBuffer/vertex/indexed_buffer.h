@@ -1,6 +1,6 @@
 #pragma once
 
-#include <buffer.hpp>
+#include <buffer.h>
 
 namespace ag {
 	class indexed_buffer : public buffer {

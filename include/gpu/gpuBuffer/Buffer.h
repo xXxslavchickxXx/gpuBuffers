@@ -1,7 +1,7 @@
 #pragma once
 
 #include <GL/glew.h>
-
+#include <concepts.h>
 #include <traits.h>
 
 namespace ag {

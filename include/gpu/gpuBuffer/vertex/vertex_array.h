@@ -6,9 +6,9 @@
 #include <vector>
 #include <unordered_map>
 
-#include <vertex/vertex_buffer.hpp>
-#include <vertex/indexed_buffer.hpp>
-#include <vertex/vertex_weak_ref.hpp>
+#include <vertex/vertex_buffer.h>
+#include <vertex/indexed_buffer.h>
+#include <vertex/vertex_weak_ref.h>
 
 namespace ag::gpu {
 	class vertex_array {

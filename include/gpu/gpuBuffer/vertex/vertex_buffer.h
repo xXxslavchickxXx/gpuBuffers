@@ -1,6 +1,6 @@
 #pragma once
 
-#include <buffer.hpp>
+#include <buffer.h>
 
 namespace ag {
 	namespace gpu {
@@ -32,8 +32,8 @@ namespace ag {
 		void upload(const T* data, size_t count) {
 			allocate(sizeof(T) * count, data);
 		}
-		template<typename Container>
-		void upload(const Container& container) {
+		template<concepts::Container T>
+		void upload(const T& container) {
 			upload(container.data(), container.size());
 		}
 
@@ -41,9 +41,9 @@ namespace ag {
 		void upload_part(const T* data, size_t count, size_t offset = 0) {
 			set_sub_data(sizeof(T) * count, data, offset);
 		}
-		template<typename Container>
-		void upload_part(const Container& container, size_t offset = 0) {
-			set_sub_data(container.size() * sizeof(typename Container::value_type), container.data(), offset);
+		template<concepts::Container T>
+		void upload_part(const T& container, size_t offset = 0) {
+			set_sub_data(container.size() * sizeof(typename T::value_type), container.data(), offset);
 		}
 	};
 }

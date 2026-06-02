@@ -1,8 +1,8 @@
 ﻿#include <iostream>
 #include <vector>
 
-#include <vertex/vertex_array.hpp>
-#include <uniform/uniform_buffer.hpp>
+#include <vertex/vertex_array.h>
+#include <uniform/uniform_buffer.h>
 #include <window.h>
 
 // Сабдирректории
