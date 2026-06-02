@@ -2,9 +2,9 @@
 #include <vector>
 #include <cassert>
 
-#include <gpuBuffer/vertex/vertex_array.hpp>
-#include <gpuBuffer/uniform/uniform_buffer.hpp>
-#include <window/window.h>
+#include <vertex/vertex_array.h>
+#include <uniform/uniform_buffer.h>
+#include <window.h>
 
 #include <shaderProgram/ShaderProgram.h>
 #include <uniformReflector/uniformReflector.h>
@@ -242,7 +242,7 @@ void test_uniform_reflector() {
 
         shader::uniform_reflector reflector(program.getId());
 
-        TEST(reflector.size() >= 0, "Reflector created");
+        TEST(reflector.get_uniforms().size() >= 0, "Reflector created");
         TEST(true, "Uniform reflector works");
     }
     catch (const std::exception& e) {
