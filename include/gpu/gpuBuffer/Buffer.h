@@ -72,17 +72,14 @@ namespace ag {
 				glCopyBufferSubData(id, s_temp_buffer, 0, 0, size);
 			}
 
-			glBindBuffer(target, id);
+			bind();
 			glBufferData(target, new_capacity, nullptr, usage);
 
 			if (size > 0) {
 				glCopyBufferSubData(s_temp_buffer, id, 0, 0, size);
 			}
 
-			if (data) {
-				glBufferSubData(target, size, new_capacity - size,
-					(const uint8_t*)data + size);
-			}
+			if (data) glBufferSubData(target, 0, size, data);
 
 			capacity = new_capacity;
 			size = new_capacity;
@@ -92,7 +89,7 @@ namespace ag {
 			size_t required = offset + data_size;
 
 			if (required > capacity) {
-				allocate(std::max(required, capacity * 2), nullptr);
+				allocate((std::max)(required, capacity * 2), nullptr);
 			}
 
 			bind();
