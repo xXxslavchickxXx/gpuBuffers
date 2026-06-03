@@ -14,16 +14,6 @@ namespace ag {
 		size_t size = 0;
 		size_t capacity = 0;
 
-		// Временный буфер (один на весь класс, static)
-		static inline GLuint s_temp_buffer = 0;
-		static inline bool s_temp_initialized = false;
-
-		void ensure_temp() {
-			if (!s_temp_initialized) {
-				glGenBuffers(1, &s_temp_buffer);
-				s_temp_initialized = true;
-			}
-		}
 	public:
 		buffer(GLenum target, GLenum usage = GL_DYNAMIC_DRAW) : target(target), usage(usage), size(0)
 		{
@@ -59,30 +49,34 @@ namespace ag {
 					bind();
 					glBufferSubData(target, 0, new_capacity, data);
 				}
-				size = new_capacity;
 				return;
 			}
 
-			ensure_temp();
-
-			glBindBuffer(target, s_temp_buffer);
-			glBufferData(target, new_capacity, nullptr, usage);
+			GLuint s_temp_buffer = 0;
+			glGenBuffers(1, &s_temp_buffer);
+			glBindBuffer(GL_COPY_WRITE_BUFFER, s_temp_buffer);
+			glBufferData(GL_COPY_WRITE_BUFFER, new_capacity, nullptr, usage);
 
 			if (size > 0) {
-				glCopyBufferSubData(id, s_temp_buffer, 0, 0, size);
+				glBindBuffer(GL_COPY_READ_BUFFER, id);
+				glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, size);
 			}
 
 			bind();
 			glBufferData(target, new_capacity, nullptr, usage);
 
 			if (size > 0) {
-				glCopyBufferSubData(s_temp_buffer, id, 0, 0, size);
+				glBindBuffer(GL_COPY_READ_BUFFER, s_temp_buffer);
+				glCopyBufferSubData(GL_COPY_READ_BUFFER, target, 0, 0, size);
 			}
 
-			if (data) glBufferSubData(target, 0, size, data);
+			glDeleteBuffers(1, &s_temp_buffer);
+
+			if (data) {
+				glBufferSubData(target, size, new_capacity - size, (const uint8_t*)data + size);
+			}
 
 			capacity = new_capacity;
-			size = new_capacity;
 		}
 
 		void reserve(size_t new_capacity) {
